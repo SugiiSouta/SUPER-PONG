@@ -17,7 +17,7 @@ MonoBehaviour:
   paddleColor: {r: 1, g: 0.3226415, b: 0.3226415, a: 1}
   moveSpeed: 11
   paddleHeightMultiplier: 1
-  maxHP: 150
+  maxHP: 120
   normalHitSpeedMultiplier: 1
   smashPowerMultiplier: 1.4
   smashBallSpeedMultiplier: 1

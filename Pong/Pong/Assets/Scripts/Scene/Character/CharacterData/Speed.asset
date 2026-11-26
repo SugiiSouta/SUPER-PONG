@@ -15,12 +15,12 @@ MonoBehaviour:
   characterName: Speed
   icon: {fileID: 0}
   paddleColor: {r: 0.5943396, g: 1, b: 0.9984092, a: 1}
-  moveSpeed: 100
+  moveSpeed: 14
   paddleHeightMultiplier: 1
   maxHP: 100
   normalHitSpeedMultiplier: 1
-  smashPowerMultiplier: 1
+  smashPowerMultiplier: 0.7
   smashBallSpeedMultiplier: 1
-  smashCooldown: 2
+  smashCooldown: 3
   smashMoveDistance: 0.5
   smashMoveSpeed: 12
