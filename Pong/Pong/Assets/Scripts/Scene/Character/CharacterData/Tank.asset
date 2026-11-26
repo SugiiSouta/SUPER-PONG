@@ -21,6 +21,6 @@ MonoBehaviour:
   normalHitSpeedMultiplier: 1
   smashPowerMultiplier: 1
   smashBallSpeedMultiplier: 1
-  smashCooldown: 2
+  smashCooldown: 5
   smashMoveDistance: 0.5
   smashMoveSpeed: 10
