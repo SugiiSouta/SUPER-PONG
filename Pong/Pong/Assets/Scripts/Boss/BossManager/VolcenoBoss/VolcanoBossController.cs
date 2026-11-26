@@ -74,24 +74,35 @@ public class VolcanoBossController : BossController
         directionTimer -= Time.deltaTime;
 
         if (directionTimer <= 0f)
+        {
             ChangeMoveDirection();
-
-        transform.position +=
-            (Vector3)moveDirection * moveSpeed * Time.deltaTime;
+        }
 
         Vector3 pos = transform.position;
 
-        pos.x = Mathf.Clamp(
-            pos.x,
-            basePosition.x - moveRangeX,
-            basePosition.x + moveRangeX
-        );
+        pos += (Vector3)moveDirection
+            * moveSpeed
+            * Time.deltaTime;
 
-        pos.y = Mathf.Clamp(
-            pos.y,
-            basePosition.y - moveRangeY,
-            basePosition.y + moveRangeY
-        );
+        float minX = basePosition.x - moveRangeX;
+        float maxX = basePosition.x + moveRangeX;
+
+        float minY = basePosition.y - moveRangeY;
+        float maxY = basePosition.y + moveRangeY;
+
+        // 左右の端に到達したら反射
+        if (pos.x <= minX || pos.x >= maxX)
+        {
+            moveDirection.x *= -1f;
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        }
+
+        // 上下の端に到達したら反射
+        if (pos.y <= minY || pos.y >= maxY)
+        {
+            moveDirection.y *= -1f;
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        }
 
         transform.position = pos;
     }

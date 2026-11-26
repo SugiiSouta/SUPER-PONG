@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceDragon
   m_EditorClassIdentifier: 
   bossName: Dragon
-  maxHP: 300
+  maxHP: 250
   moveSpeed: 10
   moveRangeX: 5
   moveRangeY: 3

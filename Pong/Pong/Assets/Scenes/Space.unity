@@ -567,6 +567,7 @@ Transform:
   - {fileID: 417150623}
   - {fileID: 297271047}
   - {fileID: 1327430169}
+  - {fileID: 879906917}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182994776
@@ -2166,6 +2167,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &879906916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879906917}
+  - component: {fileID: 879906918}
+  m_Layer: 0
+  m_Name: CharacterSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879906917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879906916}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 275.23325, y: 106.329666, z: -10.02437}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 160806498}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879906918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879906916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c6d4f933c4cb247a4692229d7585db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - {fileID: 11400000, guid: b6125eb23e16caf44836745ab6d6a5b6, type: 2}
+  - {fileID: 11400000, guid: e1ce6b9d72f6bc546a89a2834675d1c6, type: 2}
+  - {fileID: 11400000, guid: 096f24db97c77c944afa6057a4d93063, type: 2}
+  - {fileID: 11400000, guid: e23fd68338f221c49a2e224ecfa20599, type: 2}
+  - {fileID: 11400000, guid: 504819e11328e914ea9d507a3c29b910, type: 2}
 --- !u!1 &891672588
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,6 +3261,7 @@ MonoBehaviour:
   smashPower: 2
   mainBall: {fileID: 1206487111}
   gimmicBalls: []
+  targetFireBall: 1
   reactionSpeed: 0.4
   predictionStrength: 0.5
   mistakeChance: 0
@@ -3340,7 +3392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de4c428c8e1ccb4385616e137e3d180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  computerPaddle: {fileID: 0}
+  computerPaddle: {fileID: 1362602729}
   player2Paddle: {fileID: 1362602735}
   player2SmashController: {fileID: 1362602738}
 --- !u!114 &1362602738
@@ -4087,7 +4139,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -20
   m_Sprite: {fileID: -5769344619693385349, guid: ffaa0cd6032075d42b20d6efee9bab6c,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4514,7 +4566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 15
+  m_text: 60
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9b222fd15570d5548a02a4992e93310c, type: 2}
   m_sharedMaterial: {fileID: -1487759315558158351, guid: 9b222fd15570d5548a02a4992e93310c,
@@ -5238,7 +5290,7 @@ PrefabInstance:
     - target: {fileID: 1874733405557060729, guid: 1c883269590ea7a4cb94f971acafb391,
         type: 3}
       propertyPath: secondPhaseTimeLimit
-      value: 15
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1874733405557060729, guid: 1c883269590ea7a4cb94f971acafb391,
         type: 3}

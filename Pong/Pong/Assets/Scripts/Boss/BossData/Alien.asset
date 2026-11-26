@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Alien
   m_EditorClassIdentifier: 
   bossName: Alien
-  maxHP: 60
+  maxHP: 300
   moveSpeed: 3
   moveRangeX: 3
   moveRangeY: 3

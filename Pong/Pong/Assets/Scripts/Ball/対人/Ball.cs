@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BallSmashManager))]
+//[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(BallSmashManager))]
 public class Ball : MonoBehaviour
 {
     private Rigidbody2D rb;

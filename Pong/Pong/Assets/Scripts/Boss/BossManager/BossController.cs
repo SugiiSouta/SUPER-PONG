@@ -493,4 +493,26 @@ public class BossController : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    protected void SetBossHP(float newHP)
+    {
+        if (isDead || currentData == null)
+        {
+            return;
+        }
+
+        hp = Mathf.Clamp(
+            newHP,
+            0f,
+            currentData.maxHP
+        );
+
+        UpdateHpBar();
+        NotifyHpChanged();
+
+        if (hp <= 0f && battleStarted && !phaseChanging)
+        {
+            HandleHpZero();
+        }
+    }
 }

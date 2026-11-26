@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public abstract class Paddle : MonoBehaviour
@@ -58,11 +57,19 @@ public abstract class Paddle : MonoBehaviour
 
     private float inertiaVelocity;
 
+    // ========================================
+    // サーカスステージ：操作反転
+    // ========================================
+
+    private bool reverseEnabled;
+    private Coroutine reverseCoroutine;
+
+    public bool IsReversed => reverseEnabled;
+
     protected virtual void Awake()
     {
         originalScale = transform.localScale;
 
-        // 通常時の速度を保存
         normalSpeed = speed;
     }
 
@@ -85,6 +92,12 @@ public abstract class Paddle : MonoBehaviour
             1f
         );
 
+        // サーカスステージ：操作反転
+        if (reverseEnabled)
+        {
+            moveInput *= -1f;
+        }
+
         // ====================================
         // 水中ステージ専用処理
         // ====================================
@@ -95,7 +108,6 @@ public abstract class Paddle : MonoBehaviour
 
             if (moveInput > 0f)
             {
-                // 上方向：通常より遅く上昇
                 velocity =
                     moveInput *
                     speed *
@@ -103,13 +115,10 @@ public abstract class Paddle : MonoBehaviour
             }
             else if (moveInput < 0f)
             {
-                // 下方向：通常速度で下降
-                velocity =
-                    moveInput * speed;
+                velocity = moveInput * speed;
             }
             else
             {
-                // 入力なし：自動的に沈む
                 velocity = -underwaterSinkSpeed;
             }
 
@@ -122,27 +131,21 @@ public abstract class Paddle : MonoBehaviour
         // 通常ステージの処理
         // ====================================
 
-        // 慣性OFFなら即座に移動
         if (!inertiaEnabled)
         {
-            inertiaVelocity =
-                moveInput * speed;
-
+            inertiaVelocity = moveInput * speed;
             return inertiaVelocity;
         }
 
-        float targetVelocity =
-            moveInput * speed;
+        float targetVelocity = moveInput * speed;
 
-        // 入力なしなら徐々に停止
         if (Mathf.Abs(moveInput) < 0.01f)
         {
-            inertiaVelocity =
-                Mathf.MoveTowards(
-                    inertiaVelocity,
-                    0f,
-                    deceleration * deltaTime
-                );
+            inertiaVelocity = Mathf.MoveTowards(
+                inertiaVelocity,
+                0f,
+                deceleration * deltaTime
+            );
 
             return inertiaVelocity;
         }
@@ -157,14 +160,79 @@ public abstract class Paddle : MonoBehaviour
                 ? turnAcceleration
                 : acceleration;
 
-        inertiaVelocity =
-            Mathf.MoveTowards(
-                inertiaVelocity,
-                targetVelocity,
-                currentAcceleration * deltaTime
-            );
+        inertiaVelocity = Mathf.MoveTowards(
+            inertiaVelocity,
+            targetVelocity,
+            currentAcceleration * deltaTime
+        );
 
         return inertiaVelocity;
+    }
+
+    // ========================================
+    // サーカスステージ：操作反転
+    // ========================================
+
+    public void Reverse(float duration)
+    {
+        if (reverseCoroutine != null)
+        {
+            StopCoroutine(reverseCoroutine);
+            reverseCoroutine = null;
+        }
+
+        if (duration <= 0f)
+        {
+            SetReverseEnabled(false);
+            return;
+        }
+
+        SetReverseEnabled(true);
+
+        reverseCoroutine = StartCoroutine(
+            ReverseRoutine(duration)
+        );
+    }
+
+    private IEnumerator ReverseRoutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        SetReverseEnabled(false);
+
+        reverseCoroutine = null;
+    }
+
+    public void SetReverseEnabled(bool enabled)
+    {
+        reverseEnabled = enabled;
+
+        // 反転切り替え時に慣性をリセット
+        StopInertia();
+
+        Debug.Log(
+            $"{gameObject.name}：操作反転" +
+            (enabled ? "ON" : "OFF"),
+            this
+        );
+    }
+
+    public void StopReverse()
+    {
+        if (reverseCoroutine != null)
+        {
+            StopCoroutine(reverseCoroutine);
+            reverseCoroutine = null;
+        }
+
+        SetReverseEnabled(false);
+    }
+
+    private void OnDisable()
+    {
+        reverseEnabled = false;
+        reverseCoroutine = null;
+        inertiaVelocity = 0f;
     }
 
     // ========================================
@@ -175,7 +243,6 @@ public abstract class Paddle : MonoBehaviour
     {
         underwaterEnabled = enabled;
 
-        // 切り替え時に慣性をリセット
         StopInertia();
 
         Debug.Log(
@@ -245,11 +312,9 @@ public abstract class Paddle : MonoBehaviour
     {
         bossSpeedUp = true;
 
-        // 高速状態では慣性を切る
         DisableInertia();
 
-        speed =
-            normalSpeed * bossSpeedMultiplier;
+        speed = normalSpeed * bossSpeedMultiplier;
 
         Debug.Log(
             $"{gameObject.name}：高速モードON",
@@ -261,10 +326,8 @@ public abstract class Paddle : MonoBehaviour
     {
         bossSpeedUp = false;
 
-        // 通常速度に戻す
         speed = normalSpeed;
 
-        // 既存の氷ステージ用処理
         EnableInertia();
     }
 
@@ -281,11 +344,10 @@ public abstract class Paddle : MonoBehaviour
     {
         inertiaVelocity = 0f;
 
-        transform.position =
-            new Vector2(
-                transform.position.x,
-                0f
-            );
+        transform.position = new Vector2(
+            transform.position.x,
+            0f
+        );
     }
 
     // ========================================
@@ -314,20 +376,18 @@ public abstract class Paddle : MonoBehaviour
             StopCoroutine(growCoroutine);
         }
 
-        growCoroutine =
-            StartCoroutine(
-                GrowRoutine(duration)
-            );
+        growCoroutine = StartCoroutine(
+            GrowRoutine(duration)
+        );
     }
 
     private IEnumerator GrowRoutine(float duration)
     {
-        transform.localScale =
-            new Vector3(
-                originalScale.x,
-                originalScale.y * 1.5f,
-                originalScale.z
-            );
+        transform.localScale = new Vector3(
+            originalScale.x,
+            originalScale.y * 1.5f,
+            originalScale.z
+        );
 
         yield return new WaitForSeconds(duration);
 
@@ -347,18 +407,16 @@ public abstract class Paddle : MonoBehaviour
             StopCoroutine(speedCoroutine);
         }
 
-        speedCoroutine =
-            StartCoroutine(
-                SpeedUpRoutine(duration)
-            );
+        speedCoroutine = StartCoroutine(
+            SpeedUpRoutine(duration)
+        );
     }
 
     private IEnumerator SpeedUpRoutine(float duration)
     {
         float originalSpeed = speed;
 
-        speed =
-            originalSpeed * 1.3f;
+        speed = originalSpeed * 1.3f;
 
         yield return new WaitForSeconds(duration);
 

@@ -303,6 +303,7 @@ MonoBehaviour:
   maxHP: 150
   healthImage: {fileID: 2097897496}
   gameOverText: {fileID: 388210664}
+  invincibleHealthColor: {r: 0.3, g: 0.9, b: 1, a: 1}
 --- !u!1 &117185820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1842,7 @@ MonoBehaviour:
   maxHP: 150
   healthImage: {fileID: 60469577}
   gameOverText: {fileID: 538210431}
+  invincibleHealthColor: {r: 0.3, g: 0.9, b: 1, a: 1}
 --- !u!114 &954571801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,8 +2982,6 @@ GameObject:
   - component: {fileID: 1362602739}
   - component: {fileID: 1362602742}
   - component: {fileID: 1362602741}
-  - component: {fileID: 1362602745}
-  - component: {fileID: 1362602744}
   - component: {fileID: 1362602743}
   m_Layer: 0
   m_Name: Computer Paddle
@@ -3102,13 +3102,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
+  bossSpeedMultiplier: 1.5
   inertiaEnabled: 0
   acceleration: 18
   deceleration: 7
   turnAcceleration: 28
+  underwaterEnabled: 0
+  underwaterUpMultiplier: 0.6
+  underwaterSinkSpeed: 2
   smashPower: 2
   mainBall: {fileID: 977986352}
   gimmicBalls: []
+  targetFireBall: 1
   reactionSpeed: 0.4
   predictionStrength: 0.5
   mistakeChance: 0
@@ -3214,10 +3219,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
+  bossSpeedMultiplier: 1.5
   inertiaEnabled: 0
   acceleration: 18
   deceleration: 7
   turnAcceleration: 28
+  underwaterEnabled: 0
+  underwaterUpMultiplier: 0.6
+  underwaterSinkSpeed: 2
   smashPower: 5
   upKey: 273
   downKey: 274
@@ -3300,45 +3309,6 @@ MonoBehaviour:
   moveSpeed: 10
   smashDirection: -1
   cooldownTime: 7
---- !u!114 &1362602744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362602725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510181352c4a01d4cb21a949096a556b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smashBoost: 5
-  smashTrigger: {fileID: 0}
-  normalLayerName: Ball
-  smashLayerName: SmashBall
---- !u!114 &1362602745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362602725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b2399eb776bf94e908930cf937f564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 10
-  maxSpeed: 25
-  ignoreMaxSpeed: 0
-  hasPowerUp: 0
-  powerMultiplier: 1.5
-  smashBreakRadius: 0.35
-  droneLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  hitEffect: {fileID: 0}
-  smashEffect: {fileID: 0}
 --- !u!1 &1439415306
 GameObject:
   m_ObjectHideFlags: 0
@@ -3554,8 +3524,6 @@ GameObject:
   - component: {fileID: 1535292076}
   - component: {fileID: 1535292075}
   - component: {fileID: 1535292077}
-  - component: {fileID: 1535292080}
-  - component: {fileID: 1535292079}
   - component: {fileID: 1535292078}
   m_Layer: 0
   m_Name: Player Paddle
@@ -3649,10 +3617,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
+  bossSpeedMultiplier: 1.5
   inertiaEnabled: 0
   acceleration: 18
   deceleration: 7
   turnAcceleration: 28
+  underwaterEnabled: 0
+  underwaterUpMultiplier: 0.6
+  underwaterSinkSpeed: 2
   smashPower: 2
   smashController: {fileID: 1535292078}
   limitY: 4.25
@@ -3847,45 +3819,6 @@ MonoBehaviour:
   moveSpeed: 10
   smashDirection: 1
   cooldownTime: 7
---- !u!114 &1535292079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535292063}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510181352c4a01d4cb21a949096a556b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smashBoost: 5
-  smashTrigger: {fileID: 0}
-  normalLayerName: Ball
-  smashLayerName: SmashBall
---- !u!114 &1535292080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535292063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b2399eb776bf94e908930cf937f564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 10
-  maxSpeed: 25
-  ignoreMaxSpeed: 0
-  hasPowerUp: 0
-  powerMultiplier: 1.5
-  smashBreakRadius: 0.35
-  droneLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  hitEffect: {fileID: 0}
-  smashEffect: {fileID: 0}
 --- !u!1001 &1697355344
 PrefabInstance:
   m_ObjectHideFlags: 0
